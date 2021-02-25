@@ -58,10 +58,10 @@ public class Main {
 		
 		for (ArrayList<Double> list : lists) {
 			double changes = 0;
-			double iterations = 1;
+			double iterations = 0; //Change 0 for 1
 			
 			//Bubble sort
-			for (int i = 1; i < list.size() - 1  ; i++) { 
+			for (int i = 1; i < list.size()  ; i++) { 
 				
 				for (int j = 0; j < list.size() - i; j++) {
 					
