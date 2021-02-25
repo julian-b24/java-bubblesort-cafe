@@ -5,20 +5,22 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
 
 	private static List<ArrayList<Double>> lists;
+	private static DecimalFormat df = new DecimalFormat("#.##");	
 	
 	public static void main(String[] args) throws IOException {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
-		int numCases = Integer.parseInt(br.readLine());
+		br.readLine(); //Number of cases in the input
 		lists = new ArrayList<ArrayList<Double>>();
 		
 		//Get of all cases input
@@ -56,12 +58,10 @@ public class Main {
 		
 		for (ArrayList<Double> list : lists) {
 			double changes = 0;
-			double iterations = 0;
-			boolean changed = true;
+			double iterations = 1;
 			
 			//Bubble sort
-			for (int i = 1; i < list.size() - 1 && changed; i++) {
-				changed = true;
+			for (int i = 1; i < list.size() - 1  ; i++) { 
 				
 				for (int j = 0; j < list.size() - i; j++) {
 					
@@ -69,7 +69,6 @@ public class Main {
 						double temp = list.get(j);
 						list.set(j, list.get(j+1));
 						list.set(j + 1, temp);
-						changed = true;
 						changes++;
 					}
 				}
@@ -77,7 +76,8 @@ public class Main {
 			}
 			
 			double average = changes/iterations;
-			output += String.format("%.2f", average) + "-" + listToString(list) + "\n";
+			df.setRoundingMode(RoundingMode.DOWN);
+			output += df.format(average).replace(",", ".") + "-" + listToString(list) + "\n";
 		}
 		
 		return output;
