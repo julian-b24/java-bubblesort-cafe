@@ -31,7 +31,8 @@ public class Main {
 			line = br.readLine();
 		}
 		
-		//lists = sortLists();
+		String output = sortLists();
+		bw.write(output);
 		
 		br.close();
 		bw.close();
@@ -49,9 +50,50 @@ public class Main {
 	}
 	
 	
-	private static List<ArrayList<Double>> sortLists() {
+	private static String sortLists() {
 	
-		return null;
+		String output = "";
+		
+		for (ArrayList<Double> list : lists) {
+			double changes = 0;
+			double iterations = 0;
+			boolean changed = true;
+			
+			//Bubble sort
+			for (int i = 1; i < list.size() - 1 && changed; i++) {
+				changed = true;
+				
+				for (int j = 0; j < list.size() - i; j++) {
+					
+					if (list.get(j + 1) < list.get(j)) {
+						double temp = list.get(j);
+						list.set(j, list.get(j+1));
+						list.set(j + 1, temp);
+						changed = true;
+						changes++;
+					}
+				}
+				iterations++;
+			}
+			
+			double average = changes/iterations;
+			output += String.format("%.2f", average) + "-" + listToString(list) + "\n";
+		}
+		
+		return output;
+	}
+
+	private static String listToString(ArrayList<Double> list) {
+
+		ArrayList<String> listString = new ArrayList<String>();
+		
+		for (Double db : list) {
+			listString.add(db.toString());
+		}
+		
+		String text = String.join(" ", listString);
+		
+		return text;
 	}
 
 }
